@@ -1,0 +1,26 @@
+
+<div class="container">
+    <h1>History</h1>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Type</th>
+          <th scope="col">Date</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let transaction of transactions; let i = index;">
+          <th scope="row">{{ i +1 }}</th>
+          <td>{{ transaction.type }}</td>
+          <td>{{ transaction.date }}</td>
+          <td>{{ transaction.quantity }}</td>
+          <td>{{ transaction.value }}</td>
+        </tr>
+      </tbody>
+
+    </table>
+</div>
