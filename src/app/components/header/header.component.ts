@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'exchange-header',
@@ -6,12 +7,22 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 
-export class HeaderComponent {
-    @Output() activePage = new EventEmitter<string>();
-    selectedPage = 'history';
 
-    onSelect(page: string) {
-        this.activePage.emit(page);
-        this.selectedPage = page;
+
+export class HeaderComponent {
+
+    constructor(private _router:Router) {}
+
+    showHeader() {
+        if (this._router.url === '/login'){
+            return false;
+        }
+
+        return true;
+    }
+
+    onLogout() {
+        // Do some logout logic
+        this._router.navigate(['/']);
     }
 }

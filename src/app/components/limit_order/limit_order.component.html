@@ -1,52 +1,67 @@
 
-
 <div class="container">
     
-    <div class="alert alert-success" role="alert">
-      A simple success alert—check it out!
-    </div>
-
-    <div class="alert alert-danger" role="alert">
-      A simple danger alert—check it out!
+    <div class="alert alert-danger" role="alert" *ngIf="!orderForm.valid && orderForm.touched">
+        Infromation is not correct. Please revise form.
     </div>
 
     <h1>Limit order</h1>
 
-    <div class="row">
-      <div class="col-md-6 mb-3">
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-          <label class="form-check-label" for="exampleRadios1">
-            Buy
-          </label>
+        
+
+    <form
+        (ngSubmit)="onSubmit()"
+        [class.is-valid]="orderForm.valid"
+        [class.was-validated]="orderForm.valid"
+        [class.was-validated]="orderForm.invalid"
+        [class.is-invalid]="orderForm.invalid"
+
+        [formGroup]="orderForm">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <div class="form-check">
+
+                <label class="form-check-label" for="type">
+                    Type
+                </label>
+                <select
+                    class="form-control"
+                    name="type"
+                    id="type"
+                    formControlName="type"
+                    required>
+                    <option value="Buy">Buy</option>
+                    <option value="Sell">Sell</option>
+                </select>
+
+            </div>
+
+            <div class="form-check">
+                <label for="quantity">Quantity</label>
+                <input 
+                    type="text"
+                    class="form-control"
+                    id="quantity"
+                    placeholder=""
+                    value=""
+                    required=""
+                    formControlName="quantity" />
+
+                <div *ngIf="orderForm.get('quantity').invalid && (orderForm.get('quantity').dirty || orderForm.get('quantity').touched)">
+                    <span *ngIf="orderForm.get('quantity').errors.missingValue && orderForm.get('quantity').touched">Quantity value must be numeric!</span>
+                    <span *ngIf="orderForm.get('quantity').errors.invalid && orderForm.get('quantity').touched">Quantity value must be numeric!</span>
+                    <span *ngIf="orderForm.get('quantity').errors.equalZero && orderForm.get('quantity').touched">Quantity value cannot be equal to zero!</span>
+                </div>
+              
+            </div>
+
+            <div class="total">
+              Total: <span>{{ totalValue || 0 }} EUR</span>
+            </div>
+
+            <button class="btn btn-primary" type="submit" [disabled]="!orderForm.valid">Send order</button>
+
+          </div>
         </div>
-
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option1" checked>
-          <label class="form-check-label" for="exampleRadios2">
-            Sell
-          </label>
-        </div>
-
-        <label for="quantity">Amount to Buy</label>
-        <input type="text" class="form-control" id="quantity" placeholder="" value="" required="">
-        <div class="invalid-feedback">
-          Valid amount is required.
-        </div>
-
-
-        <label for="buy">Buy price</label>
-        <input type="text" class="form-control" id="buy" placeholder="" value="" required="">
-        <div class="invalid-feedback">
-          Valid amount is required.
-        </div>
-
-        <div class="">
-          Total: <span>111.11 EUR</span>
-        </div>
-
-        <button class="btn btn-primary" type="submit" (click)="onAddOrder()">BUY</button>
-
-      </div>
-    </div>
+    </form>
 </div>

@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -8,6 +10,12 @@ import { HistoryComponent } from './components/history/history.component';
 import { LimitOrderComponent } from './components/limit_order/limit_order.component';
 
 import { TransactionsService } from './services/transactions.service';
+
+const routes: Routes = [
+    { path: '', component: LoginComponent },
+    { path: 'history', component: HistoryComponent },
+    { path: 'limit_order', component: LimitOrderComponent },
+];
 
 @NgModule({
   declarations: [
@@ -18,7 +26,10 @@ import { TransactionsService } from './services/transactions.service';
     LimitOrderComponent,
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [
       TransactionsService

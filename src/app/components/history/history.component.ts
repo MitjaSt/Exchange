@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Transaction } from '../../models/transaction/transaction.model';
 import { TransactionsService } from '../../services/transactions.service';
 
@@ -8,7 +8,6 @@ import { TransactionsService } from '../../services/transactions.service';
     styleUrls: ['./history.component.css']
 })
 export class HistoryComponent implements OnInit {
-    title = 'app';
     transactions: Transaction[] = [];
 
     constructor(private transactionsService: TransactionsService) {}
@@ -19,8 +18,8 @@ export class HistoryComponent implements OnInit {
             this.transactionsService.loadMockData();
         }
         
-        // Set initial history state
         this.transactions = this.transactionsService.getState();
     }
+
 
 }

@@ -1,5 +1,11 @@
-<exchange-header *ngIf="activePage !== 'login'" (activePage)="onNavigate($event)"></exchange-header>
+<exchange-header *ngIf="_router.url !== '/'"></exchange-header>
 
+
+<router-outlet></router-outlet>
+<!--
 <exchange-login [ngClass]="{'d-none': activePage !== 'login'}"></exchange-login>
 <exchange-history [ngClass]="{'d-none': activePage !== 'history'}"></exchange-history>
 <exchange-limit-order [ngClass]="{'d-none': activePage !== 'limit_order'}"></exchange-limit-order>
+-->
+
+

@@ -1,0 +1,13 @@
+span.ng-valid {
+    display: none;
+}
+
+span.ng-invalid {
+    display: inline;
+    color: red;
+}
+
+.total {
+    padding: 10px 0 10px 30px;
+    font-weight: bold;
+}
