@@ -1,6 +1,7 @@
 # Installation
 
 * Clone repository
+* Run "npm install -g @angular/cli"
 * Run "npm install"
 * Run "ng serve --open"
  
