@@ -11,3 +11,11 @@ span.ng-invalid {
     padding: 10px 0 10px 30px;
     font-weight: bold;
 }
+
+.form-check {
+    margin: 15px 0;
+}
+
+button[type="submit"] {
+    margin-top: 10px;
+}

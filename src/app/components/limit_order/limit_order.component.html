@@ -7,22 +7,20 @@
 
     <h1>Limit order</h1>
 
-        
-
     <form
         (ngSubmit)="onSubmit()"
         [class.is-valid]="orderForm.valid"
         [class.was-validated]="orderForm.valid"
         [class.was-validated]="orderForm.invalid"
         [class.is-invalid]="orderForm.invalid"
-
         [formGroup]="orderForm">
+
         <div class="row">
           <div class="col-md-6 mb-3">
             <div class="form-check">
 
                 <label class="form-check-label" for="type">
-                    Type
+                    Type:
                 </label>
                 <select
                     class="form-control"
@@ -30,14 +28,14 @@
                     id="type"
                     formControlName="type"
                     required>
-                    <option value="Buy">Buy</option>
-                    <option value="Sell">Sell</option>
+                    <option value="buy">Buy</option>
+                    <option value="sell">Sell</option>
                 </select>
 
             </div>
 
             <div class="form-check">
-                <label for="quantity">Quantity</label>
+                <label for="quantity">Quantity:</label>
                 <input 
                     type="text"
                     class="form-control"
@@ -48,9 +46,27 @@
                     formControlName="quantity" />
 
                 <div *ngIf="orderForm.get('quantity').invalid && (orderForm.get('quantity').dirty || orderForm.get('quantity').touched)">
-                    <span *ngIf="orderForm.get('quantity').errors.missingValue && orderForm.get('quantity').touched">Quantity value must be numeric!</span>
-                    <span *ngIf="orderForm.get('quantity').errors.invalid && orderForm.get('quantity').touched">Quantity value must be numeric!</span>
-                    <span *ngIf="orderForm.get('quantity').errors.equalZero && orderForm.get('quantity').touched">Quantity value cannot be equal to zero!</span>
+                    <span *ngIf="orderForm.get('quantity').errors.missingValue && orderForm.get('quantity').touched" class="ng-invalid">Quantity value must be numeric!</span>
+                    <span *ngIf="orderForm.get('quantity').errors.equalZero && orderForm.get('quantity').touched" class="ng-invalid">Quantity value cannot be equal to zero!</span>
+                </div>
+              
+            </div>
+
+            <div class="form-check">
+                <label for="price">{{ orderForm.get('type').value | titlecase }} at price:</label>
+
+                <input 
+                    type="text"
+                    class="form-control"
+                    id="price"
+                    placeholder=""
+                    value=""
+                    required=""
+                    formControlName="price" />
+
+                <div *ngIf="orderForm.get('price').invalid && (orderForm.get('price').dirty || orderForm.get('price').touched)">
+                    <span *ngIf="orderForm.get('price').errors.missingValue && orderForm.get('price').touched" class="ng-invalid">Price value must be numeric!</span>
+                    <span *ngIf="orderForm.get('price').errors.equalZero && orderForm.get('price').touched" class="ng-invalid">Price value cannot be equal to zero!</span>
                 </div>
               
             </div>
@@ -63,5 +79,6 @@
 
           </div>
         </div>
+
     </form>
 </div>

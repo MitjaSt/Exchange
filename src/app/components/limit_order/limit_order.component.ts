@@ -14,32 +14,30 @@ import { TransactionsService } from '../../services/transactions.service';
 })
 export class LimitOrderComponent implements OnInit {
 
-     orderForm: FormGroup;
-     coinValue: number;
-     totalValue: number;
+    orderForm: FormGroup;
+    totalValue: number;
 
     constructor(
         private transactionsService: TransactionsService,
-        private _router:Router
+        private router:Router
         ) {} 
-
 
     ngOnInit() {
         this.orderForm = new FormGroup({
-            'type': new FormControl('Buy'),
-            'quantity': new FormControl(null, [this.validateNumber.bind(this)])
+            type: new FormControl('buy'),
+            quantity: new FormControl(null, [this.validateNumber.bind(this)]),
+            price: new FormControl(null, [this.validateNumber.bind(this)]),
         });
 
+        // On form updates, calculate total value of transaction
         this.orderForm.valueChanges.subscribe(
                (values) => {
-                   this.totalValue = this.coinValue * values.quantity;
+                   this.totalValue = values.quantity * values.price;
                }
         );
-
-        this.coinValue = this.transactionsService.coinValue;
-
     }
 
+    // Add several validation methods for quantity/value inputs
     validateNumber(control: FormControl): {[s: string]: boolean} {
 
         if(control.value == '') {
@@ -64,19 +62,20 @@ export class LimitOrderComponent implements OnInit {
     }
 
     onSubmit() {
-
+        // On valid order form submittion, generate new transaction and route to history
         if(this.orderForm.valid) {
             let date = new Date();
 
             this.transactionsService.addTransaction(
                 this.orderForm.get('type').value,
-                 date.getDate()+'.'+date.getMonth()+'.'+date.getFullYear()+' '+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds(),
-                 parseFloat(this.orderForm.get('quantity').value)
+                 new Date(),
+                 parseFloat(this.orderForm.get('quantity').value),
+                 parseFloat(this.orderForm.get('price').value)
             );
 
             this.orderForm.reset();
 
-            this._router.navigate(['/history']);
+            this.router.navigate(['/history']);
         }
     }
 

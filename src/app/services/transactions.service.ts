@@ -5,62 +5,69 @@ import { Transaction } from '../models/transaction/transaction.model';
 export class TransactionsService {
     transactions: Transaction[] = [];
 
-    // Value of 1 coin so we can generate total transaction value
-    coinValue : number;
-
     constructor() {
-        this.coinValue = (Math.random() * 2000) + 6000;
-
+        // Add some dummy history for transaction data
         this.loadMockData();
     }
 
-
-    getState() {
+    // Get all transactions
+    getAll() {
         return this.transactions;
     }
 
-    addTransaction(type: string, date: string, quantity: number) {
+    // Add new transaction
+    addTransaction(type: string, date: Date, quantity: number, price: number) {
         this.transactions.unshift(
             new Transaction(
                 type,
                 date,
                 quantity,
-                parseFloat((quantity*this.coinValue).toFixed(4))
+                price
             )
         );
-
     }
 
 
-    // Mocking methods
+    // Load several mock data
     loadMockData() {
         for(let no = 0 ; no <= 10 ; no++) {
             this.addMockTransaction();
         }
     }
 
+    // Mock transaction data
     addMockTransaction() {
         let type;
 
         if(Math.round(Math.random()) == 0) {
-            type = 'Buy';
+            type = 'buy';
         } else {
-            type = 'Sell';
+            type = 'sell';
         }
 
         let quantity = Math.round(Math.random() * 200) + 10;
-        let date = this.getRandomDate(new Date('1.1.2017'), new Date()) ;
+        let price    = Math.round(Math.random() * 200) + 10;
+
+        let dates =  [
+            1496229431249,
+            1513940697901,
+            1483813025438,
+            1497814050369,
+            1510184605533,
+            1501697460867,
+            1520472258180,
+            1483473139047,
+            1505384518020,
+            1524230779625,
+            1501138735215,
+        ];
 
         this.addTransaction(
             type,
-            date.getDate()+'.'+date.getMonth()+'.'+date.getFullYear()+' '+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds(),
-            quantity
+            new Date(dates[Math.floor(Math.random() * dates.length)]),
+            quantity,
+            price
         );
-    }
-
-    getRandomDate(start, end) {
-        // https://gist.github.com/miguelmota/5b67e03845d840c949c4
-        return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
     }
 
 }

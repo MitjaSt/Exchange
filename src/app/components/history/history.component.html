@@ -9,16 +9,18 @@
           <th scope="col">Type</th>
           <th scope="col">Date</th>
           <th scope="col">Quantity</th>
-          <th scope="col">Value</th>
+          <th scope="col">At value</th>
+          <th scope="col">Total</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let transaction of transactions; let i = index;">
           <th scope="row">{{ i +1 }}</th>
-          <td class="type">{{ transaction.type }}</td>
-          <td>{{ transaction.date }}</td>
+          <td class="type">{{ transaction.type | titlecase }}</td>
+          <td>{{ transaction.date | date:'d.M.yyyy H:mm:ss' }}</td>
           <td>{{ transaction.quantity }}</td>
-          <td>{{ transaction.value }}</td>
+          <td>{{ transaction.price | customCurrency:'EUR' }}</td>
+          <td>{{ transaction.total | customCurrency:'EUR' }}</td>
         </tr>
       </tbody>
 

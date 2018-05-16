@@ -1,13 +1,15 @@
 export class Transaction {
     public type: string;
-    public date: string;
+    public date: Date;
     public quantity: number;
-    public value: number;
+    public price: number;
+    public total: number;
 
-    constructor(type: string, date: string, quantity: number, value: number) {
+    constructor(type: string, date: Date, quantity: number, price: number) {
         this.type = type;
         this.date = date;
         this.quantity = quantity;
-        this.value = value;
+        this.price = price;
+        this.total = quantity*price;
     }
 }

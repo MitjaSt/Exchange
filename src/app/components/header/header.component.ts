@@ -7,8 +7,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 
-
-
 export class HeaderComponent {
 
     constructor(private _router:Router) {}
@@ -22,7 +20,6 @@ export class HeaderComponent {
     }
 
     onLogout() {
-        // Do some logout logic
         this._router.navigate(['/']);
     }
 }

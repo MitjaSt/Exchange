@@ -14,11 +14,11 @@ export class HistoryComponent implements OnInit {
 
     ngOnInit() {
         // Load some test data
-        if(this.transactionsService.getState().length === 0) {
+        if(this.transactionsService.getAll().length === 0) {
             this.transactionsService.loadMockData();
         }
-        
-        this.transactions = this.transactionsService.getState();
+
+        this.transactions = this.transactionsService.getAll();
     }
 
 
