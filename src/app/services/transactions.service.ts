@@ -30,7 +30,7 @@ export class TransactionsService {
 
     // Load several mock data
     loadMockData() {
-        for(let no = 0 ; no <= 10 ; no++) {
+        for(let no = 1 ; no <= 10 ; no++) {
             this.addMockTransaction();
         }
     }
